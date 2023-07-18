@@ -1,18 +1,18 @@
 {
-  "dependencies": {
-    "express": "^4.18.2"
-  },
+  "author": "Asif Mosharraf",
+  "license": "MIT",
   "name": "crud_mongoose",
   "version": "1.0.0",
   "description": "CRUD operation with mongoose",
   "main": "index.js",
-  "devDependencies": {},
   "scripts": {
-    "start": "node index.js"
+    "start": "nodemon index.js"
   },
   "keywords": [
     "mongoose"
   ],
-  "author": "Asif Mosharraf",
-  "license": "MIT"
+  "dependencies": {
+    "express": "^4.18.2",
+    "nodemon": "^3.0.1"
+  }
 }

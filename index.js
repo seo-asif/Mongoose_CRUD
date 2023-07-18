@@ -1,19 +1,10 @@
-const express = require("express");
+const http = require("http");
 
-//express app initialization
-const app = express();
-app.use(express.json());
+const myServer = http.createServer((req, res) => {
+  console.log("new Respond recieve");
+  console.log(req.headers);
 
-//application routes
-
-//default express error handler
-function errorHandler(err, req, res, next) {
-  if (res.errorHandler) {
-    return next(err);
-  }
-  res.status(500).json({ error: err });
-}
-
-app.listen(3000, () => {
-  console.log(`app is listening on port 3000`);
+  res.end("hello from server");
 });
+
+myServer.listen(3000, () => console.log("server start on 3000"));
