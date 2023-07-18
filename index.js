@@ -1,10 +1,11 @@
-const http = require("http");
+const express = require("express");
 
-const myServer = http.createServer((req, res) => {
-  console.log("new Respond recieve");
-  console.log(req.headers);
-
-  res.end("hello from server");
+const app = express();
+app.get("/", (req, res) => {
+  return res.send("Hello from Home page");
+});
+app.get("/about", (req, res) => {
+  return res.send("Hello from about page");
 });
 
-myServer.listen(3000, () => console.log("server start on 3000"));
+app.listen(3000, () => console.log("server start on 3000"));
