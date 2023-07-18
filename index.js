@@ -5,7 +5,6 @@ const PORT = 3000;
 
 const users = require("./users_db.json");
 
-
 //Get API METHOD
 app.get("/", (req, res) => {
   return res.send("Hello from Home page");
@@ -26,11 +25,25 @@ app.get("/users", (req, res) => {
   return res.send(html);
 });
 
-
-
+app.get("/api/users/:id", (req, res) => {
+  const id = Number(req.params.id);
+  const user = users.find((user) => user.id === id);
+  return res.json(user);
+});
 
 app.get("/about", (req, res) => {
   return res.send("Hello from about page");
+});
+
+app.post("/api/users/", (req, res) => {
+  return res.json({ status: "pending" });
+});
+
+app.patch("/api/users/:id", (req, res) => {
+  return res.json({ status: "pending" });
+});
+app.delete("/api/users/:id", (req, res) => {
+  return res.json({ status: "pending" });
 });
 
 app.listen(PORT, () => console.log("server start on 3000"));
