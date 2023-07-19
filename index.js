@@ -1,16 +1,28 @@
 const express = require("express");
+const fs = require("fs");
 
 const app = express();
 const PORT = 3000;
 
 const users = require("./users_db.json");
 //Group routing
+
+app.use(express.urlencoded({ extended: false }));
+
+app.use((req, res, next) => {
+  fs.appendFile(
+    "log.txt",
+    `\n${Date.now()} : ${req.method} ${req.path}`,
+    (err, data) => next()
+  );
+});
+
 app
   .route("/api/users/:id")
   .get((req, res) => {
     const id = Number(req.params.id);
     const user = users.find((user) => user.id === id);
-    return res.json(user);
+    return res.status().json(user);
   })
   .patch((req, res) => {
     return res.json({ status: "patch" });
@@ -44,7 +56,15 @@ app.get("/about", (req, res) => {
 });
 
 app.post("/api/users/", (req, res) => {
-  return res.json({ status: "posting" });
+  const body = req.body;
+  users.push({ id: users.length + 1, ...body });
+  fs.writeFile("/users_db.json", JSON.stringify(users), (err, data) => {
+    if (body.length > 0) {
+      return res.status(201).json({ status: "success ", id: users.length });
+    } else {
+      return res.json({ status: "error " });
+    }
+  });
 });
 
 app.listen(PORT, () => console.log("server start on 3000"));
