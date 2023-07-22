@@ -1,0 +1,1 @@
+const str= "I love Bangladesh"
